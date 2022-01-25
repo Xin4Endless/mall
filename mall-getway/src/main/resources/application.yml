@@ -1,0 +1,20 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: admin_route
+          uri: lb://renren-fast
+          predicates:
+            - Path=/api/**
+          filters:
+            - RewritePath=/api/(?<segment>/?.*), /renren-fast/$\{segment}
+    nacos:
+      discovery:
+        server-addr: 81.68.211.210:8848
+  application:
+    name: mall-getway
+server:
+  port: 88
+
+  ## http://localhost:88/api/captcha.jpg   http://localhost:8080/renren-fast/captcha.jpg
+  ## http://localhost:88/api/product/category/list/tree http://localhost:10000/product/category/list/tree
