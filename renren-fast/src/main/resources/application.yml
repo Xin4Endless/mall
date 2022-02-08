@@ -13,10 +13,6 @@ spring:
   # 环境 dev|test|prod
   profiles:
     active: dev
-  cloud:
-    nacos:
-      discovery:
-        server-addr: 81.68.211.210:8848
   # jackson时间格式化
   jackson:
     time-zone: GMT+8
