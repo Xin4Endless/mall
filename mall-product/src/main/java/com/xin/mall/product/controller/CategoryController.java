@@ -1,6 +1,7 @@
 package com.xin.mall.product.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 //import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -32,14 +33,13 @@ public class CategoryController {
     private CategoryService categoryService;
 
     /**
-     * 列表
+     * 获取所有分类以及子分类 树形结构
      */
-    @RequestMapping("/list")
+    @RequestMapping("/list/tree")
     //@RequiresPermissions("product:category:list")
     public R list(@RequestParam Map<String, Object> params){
-        PageUtils page = categoryService.queryPage(params);
-
-        return R.ok().put("page", page);
+        List<CategoryEntity> list = categoryService.listWithTree();
+        return R.ok().put("data", list);
     }
 
 
@@ -82,8 +82,8 @@ public class CategoryController {
     @RequestMapping("/delete")
     //@RequiresPermissions("product:category:delete")
     public R delete(@RequestBody Long[] catIds){
-		categoryService.removeByIds(Arrays.asList(catIds));
-
+//		categoryService.removeByIds(Arrays.asList(catIds));
+        categoryService.removeCategoryByIds(Arrays.asList(catIds));
         return R.ok();
     }
 
